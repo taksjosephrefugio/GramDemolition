@@ -1,6 +1,3 @@
-# Abstract
-Contains files that I find helpful when using any generic linux-based machine
-
 # Vim Config File `.vimrc`
 Obviously, save `.vimrc` to your root directory (i.e. `~/`)
 
