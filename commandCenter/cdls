@@ -1,0 +1,6 @@
+# For some reason aliasing won't work if I name it cdls
+foobar() {
+	cd "$1" && ls;
+}
+
+foobar "$1"
