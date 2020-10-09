@@ -1,0 +1,11 @@
+[alias]
+        br = for-each-ref refs/heads/ --sort=-committerdate --count 10 --format='%(color:red)%(objectname:short)%(color:reset) - %(HEAD) %(color:yellow)%(refname:short)%(color:reset) - (%(color:green)%(committerdate:relative)%(color:reset)) - %(authorname)'
+        co = checkout
+        dfcs = diff --compact-summary
+        gdfl = "!f() { git add .; git commit; }; f"
+        lg = log -10 --pretty=format:'%C(red)%h %C(yellow)%s %C(auto)%d' --decorate=short
+        nukel = branch -D
+        nuker = push origin --delete
+        psh = push --force-with-lease
+        sq = "!f() { if [ -z $1 ]; then git rebase -i HEAD~2; else git rebase -i HEAD~$1; fi }; f"
+        st = status
