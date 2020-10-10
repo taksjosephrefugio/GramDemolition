@@ -1,7 +1,7 @@
 # Command Center
 Save the directory `commandCenter/` to Documents (i.e. `$HOME/Documents`)
 
-# Aliases  
+# Bash Aliases  
 1. Copy `.bash_aliases` to your root directory (i.e. `$HOME/`)    
 :bulb: Make sure that `commandCenter` commands have  the correct directory address on `.bash_aliases`
 2. Restart bashrc to reflect new aliases: `source $HOME/.bashrc`
