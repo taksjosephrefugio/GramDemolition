@@ -1,4 +1,4 @@
-# commandCenter
+# Command Center
 Save the directory `commandCenter/` to Documents (i.e. `$HOME/Documents`)
 
 # Aliases  
