@@ -6,7 +6,7 @@
 # Developer contact: taksjosephrefugio@gmail.com
 
 GITCONFIG_FILE=$HOME/.gitconfig
-GIT_ALIASES_SRCFILE="$(pwd)/git_aliases"
+GIT_ALIASES_SRCFILE="$(cd ..; pwd)/git_aliases"
 
 remove_existing_aliases() {
 
