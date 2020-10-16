@@ -1,0 +1,2 @@
+# The line below will override the default bash shell layout to a custom user bash layout
+export PS1="\[\033[38;5;34m\]\u@\h:\[$(tput sgr0)\]\[\033[38;5;9m\]\w\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;128m\]>\[$(tput sgr0)\] \[$(tput sgr0)\]"
