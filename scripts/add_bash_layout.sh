@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAYOUT_NAME=bash_shell_layout
+LAYOUT_NAME=bash_layout
 LAYOUT_DIR=$(cd .. || exit; pwd)
 LAYOUT="$LAYOUT_DIR/$LAYOUT_NAME"
 BASHRC="$HOME/.bashrc"
