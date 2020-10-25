@@ -1,15 +1,13 @@
-# Command Center
-Save the directory `commandCenter/` to Documents (i.e. `$HOME/Documents`)
+# How to use GramDemolition:
+1. Clone GramDemolition  
+`git clone https://github.com/taksjosephrefugio/GramDemolition.git`
 
-# Bash Aliases  
-1. Copy `.bash_aliases` to your root directory (i.e. `$HOME/`)    
-:bulb: Make sure that `commandCenter` commands have  the correct directory address on `.bash_aliases`
-2. Restart bashrc to reflect new aliases: `source $HOME/.bashrc`
+2. `cd` into the project directory  
+`cd GramDemolition`
 
-# Git Aliases  
-1. cd `GitMe/`  
-2. Edit `git_aliases` file to include your favorite git aliases. Then save. 
-2. Run the script: `./add_git_aliases.sh`
-
-# Vim Config File
-Obviously, save `.vimrc` to your root directory (i.e. `$HOME/`)
+3. Run any one of the following GNU Make recipes depending on what you are trying to install/modify:  
+`make all`   - updates everything  
+`make bash`  - modifies your bash layout, colors, and sets bash aliases  
+`make git`   - adds git aliases to your global git config file  
+`make vim`   - adds vimrc settings to your local .vimrc file  
+`make help`  - print the help information  
