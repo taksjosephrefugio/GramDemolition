@@ -1,5 +1,5 @@
 .DEFAULT_GOAL:= help
-.PHONY: help all bash git vimrc
+.PHONY: help all bash git vim
 
 help:
 	@echo 'Usage: make [target] '
@@ -21,8 +21,8 @@ all:
 
 bash:
 	@cd scripts; \
-		./add_bash_layout.sh
-		./add_bash_aliases.sh; \
+		./add_bash_layout.sh; \
+		./add_bash_aliases.sh;
 
 git:
 	@cd scripts; \
