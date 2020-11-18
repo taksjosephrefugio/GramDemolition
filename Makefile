@@ -1,5 +1,5 @@
 .DEFAULT_GOAL:= help
-.PHONY: help all bash git vim
+.PHONY: help all bash git vim permission
 
 help:
 	@echo 'Usage: make [target] '
@@ -20,14 +20,51 @@ all:
 	$(MAKE) vim
 
 bash:
+#	Fix possible file permissions issue
+	$(MAKE) permission
+
+	@echo "###############################################"
+	@echo "#                    BASH                     #"
+	@echo "###############################################"
+	@echo
+
 	@cd scripts; \
 		./add_bash_layout.sh; \
 		./add_bash_aliases.sh;
 
+	@echo
+
 git:
+#	Fix possible file permissions issues
+	$(MAKE) permission
+
+	@echo "###############################################"
+	@echo "#                     GIT                     #"
+	@echo "###############################################"
+	@echo
+
 	@cd scripts; \
 		./add_git_aliases.sh
 
+	@echo
+
 vim:
+#	Fix possible file permissions issues
+	$(MAKE) permission
+
+	@echo "###############################################"
+	@echo "#                     VIM                     #"
+	@echo "###############################################"
+	@echo
+
 	@cd scripts; \
 		./add_vimrc.sh
+
+	@echo
+
+permission:
+#	Set all scripts as executable
+	@chmod +x scripts/*
+
+#	Set all command aliases as executable
+	@chmod +x CommandCenter/*
