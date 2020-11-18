@@ -12,6 +12,9 @@ cp -rv $COMMANDCENTER $HOME && \
 echo "Copy CommandCenter to $HOME successful!" || \
 { echo "Failed to copy CommandCenter to $HOME"; exit 1; }
 
+# Set command aliases in HOME as executables
+chmod +x $HOME/CommandCenter/*
+
 # Copy .bash_aliases to home dir
 cp -v $BASH_ALIASES $HOME && \
 echo "Copy .bash_aliases to $HOME successful!" || \
