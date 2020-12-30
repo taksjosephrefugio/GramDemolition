@@ -4,6 +4,7 @@
         dfcs = diff --compact-summary
         gdfl = "!f() { git add .; git commit; }; f"
         lg = log -10 --pretty=format:'%C(red)%h %C(yellow)%s %C(auto)%d' --decorate=short
+	lgm = "!f() { git lg master..; }; f"
         nukel = branch -D
         nuker = push origin --delete
         psh = push --force-with-lease
