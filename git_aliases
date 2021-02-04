@@ -3,6 +3,7 @@
         co = checkout
         dfcs = diff --compact-summary
         gdfl = "!f() { git add .; git commit; }; f"
+        fixup = "!f() { git add .; git commit --fixup HEAD; git rebase --interactive --autosquash HEAD~2; }; f"
         lg = log -10 --pretty=format:'%C(red)%h %C(yellow)%s %C(auto)%d' --decorate=short
 	lgm = "!f() { git lg master..; }; f"
         nukel = branch -D
