@@ -1,6 +1,5 @@
-# For some reason aliasing won't work if I name it cdls
 foobar() {
-	cd "$1" && ls -l --color=auto;
+	cd $1 && ls -l --color=auto;
 }
 
-foobar "$1"
+foobar $1
