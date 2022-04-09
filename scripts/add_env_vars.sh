@@ -87,15 +87,29 @@ add_env_vars() {
 #############
 #  M A I N  #
 #############
-PROJECTDIR=$(get_project_dir_location)
+start() {
+    PROJECTDIR=$(get_project_dir_location)
 
-read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
+    read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
 
-if [[ $START_LINE -eq 0 ]]; then
-    # For when .bashrc contains NO existing custom environmental variables
-    add_env_vars && echo ">>> Custom environmental variables have been set successfully!"
-else
-    # For when .bashrc contains existing custom environmental variables
-    echo ">>> Custom environmental variables already being set at Line $START_LINE"
-    exit 1
-fi
+    if [[ $START_LINE -eq 0 ]]; then
+        # For when .bashrc contains NO existing custom environmental variables
+        add_env_vars && echo ">>> Custom environmental variables have been set successfully!"
+    else
+        # For when .bashrc contains existing custom environmental variables
+        echo ">>> Custom environmental variables already being set at Line $START_LINE"
+        exit 1
+    fi
+}
+
+
+case "$1" in
+  start)
+    start
+    ;;
+  clean|undo)
+    echo "clean"
+    ;;
+  *)
+    echo "Usage: $0 {start|clean|undo}"
+esac
