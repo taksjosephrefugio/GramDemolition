@@ -72,7 +72,8 @@ add_env_vars() {
     local COMMAND=$(echo 'export $(grep -v "^#" {} | xargs -d "\n")' | sed 's|{}|'"$CUSTOMVARSFILE"'|g')
 
     # Send custom env vars file to $HOME
-    cp $PROJECTDIR/files/custom_env_vars $HOME/.custom_env_vars && echo ">>> Custom environmental variables file sent to $HOME"
+    # cp $PROJECTDIR/files/custom_env_vars $HOME/.custom_env_vars && echo ">>> Custom environmental variables file sent to $HOME"
+    cp $PROJECTDIR/files/custom_env_vars $CUSTOMVARSFILE && echo ">>> Custom environmental variables file sent to $HOME"
 
     # Insert space if no new endline found on bashrc
     if [[ ! -z $(tail -c 1 $BASHRC) ]]; then echo >> $BASHRC; fi
@@ -108,7 +109,7 @@ case "$1" in
     start
     ;;
   clean|undo)
-    echo "clean"
+    rm -v $CUSTOMVARSFILE
     ;;
   *)
     echo "Usage: $0 {start|clean|undo}"
