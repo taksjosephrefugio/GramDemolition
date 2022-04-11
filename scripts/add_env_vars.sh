@@ -23,17 +23,9 @@ END_DELIMETER="#### END OF SETTING PERSONALIZED ENVIRONMENTAL VARIABLES"
 get_project_dir_location() {
     # Keep going up the directory tree until we hit project's base directory
     while [[ $(basename $(pwd)) != "GramDemolition" ]]; do pushd .. >/dev/null ; done
-
-    # Save project's directory location
     retval=$(pwd)
-
-    # Return to stack bottom
-    pushd -0 >/dev/null
-
-    # Clear directory stack
+    pushd -0 >/dev/null     # Return to stack bottom
     dirs -c
-
-    # Echo to return
     echo $retval
 }
 
@@ -60,23 +52,27 @@ get_env_vars_section_in_bashrc() {
         if [[ $line == $START_DELIMETER ]]; then START_LINE=$LINE_NUMBER; fi
         if [[ $line == $END_DELIMETER ]]; then END_LINE=$LINE_NUMBER; fi
     done < $BASHRC
-    
+
+    # If Endline is zero then end delimiter is located at end of file with no newline. This an edge-case, hence the if statement. 
+    if [[ $END_LINE -eq 0 ]]; then
+        END_LINE=$(cat $BASHRC | wc -l)
+        ((END_LINE+=1))
+    fi
     echo $START_LINE $END_LINE
 }
 
 
 # This function adds an 'export' line on $HOME bashrc so it can read custom environmental variables written on $HOME/.custom_env_vars
 add_env_vars() {
-    local START_LINE=$1
-    local END_LINE=$2
     local COMMAND=$(echo 'export $(grep -v "^#" {} | xargs -d "\n")' | sed 's|{}|'"$CUSTOMVARSFILE"'|g')
 
     # Send custom env vars file to $HOME
     cp $PROJECTDIR/dotfiles/custom_env_vars $CUSTOMVARSFILE && echo ">>> Custom environmental variables file sent to $HOME"
 
-    # Insert space if no new endline found on bashrc
+    # Insert space if no new endline found on .bashrc
     if [[ ! -z $(tail -c 1 $BASHRC) ]]; then echo >> $BASHRC; fi
 
+    # Insert export command to .bashrc
     echo >> $BASHRC
     echo $START_DELIMETER >> $BASHRC
     echo $COMMAND >> $BASHRC
@@ -90,6 +86,8 @@ add_env_vars() {
 start() {
     PROJECTDIR=$(get_project_dir_location)
 
+    local START_LINE
+    local END_LINE
     read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
 
     if [[ $START_LINE -eq 0 ]]; then
@@ -103,12 +101,39 @@ start() {
 }
 
 
+clean() {
+    local START_LINE
+    local END_LINE
+    read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
+
+    if [[ $START_LINE -ne 0 ]]; then
+        local BEFORE
+        local after
+        let "BEFORE = $START_LINE - 1"
+        let "AFTER = $END_LINE + 1"
+
+        # Insert space if no new endline found on .bashrc
+        if [[ ! -z $(tail -c 1 $BASHRC) ]]; then echo >> $BASHRC; fi
+
+        # Take out one extra newline so there's no double newline after truncation
+        if [[ -z $(sed -n "${BEFORE}p" $BASHRC) && -z $(sed -n "${AFTER}p" $BASHRC) ]]; then sed -i "${BEFORE}d" $BASHRC; fi
+
+        # Get new delimiter lines
+        read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
+
+        # Remove export line on .bashrc
+        sed -i "${START_LINE},${END_LINE}d" $BASHRC
+    fi
+}
+
+
 case "$1" in
   start)
     start
     ;;
   clean|undo)
     rm -v $CUSTOMVARSFILE
+    clean
     ;;
   *)
     echo "Usage: $0 {start|clean|undo}"
