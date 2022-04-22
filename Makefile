@@ -1,5 +1,5 @@
 .DEFAULT_GOAL:= help
-.PHONY: help all bash git vim permission
+.PHONY: help all clean bash git vim permission
 
 help:
 	@echo 'Usage: make [target] '
@@ -9,6 +9,7 @@ help:
 	@echo '    bash     - modifies your bash layout, colors, and sets bash aliases '
 	@echo '    git      - adds git aliases to your global git config file '
 	@echo '    vim      - adds vimrc settings to your local .vimrc file '
+	@echo '    clean    - undo changes made by everything'
 	@echo '    help     - print the help information'
 	@echo
 	@echo 'the word "everything" in the above refers to: '
@@ -18,6 +19,10 @@ all:
 	$(MAKE) bash
 	$(MAKE) git
 	$(MAKE) vim
+
+clean:
+	@cd scripts; \
+		./add_env_vars.sh clean;
 
 bash:
 #	Fix possible file permissions issue
@@ -30,7 +35,8 @@ bash:
 
 	@cd scripts; \
 		./add_bash_layout.sh; \
-		./add_bash_aliases.sh;
+		./add_bash_aliases.sh; \
+		./add_env_vars.sh start;
 
 	@echo
 
