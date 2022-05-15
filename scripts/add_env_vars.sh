@@ -102,28 +102,38 @@ start() {
 
 
 clean() {
-    local START_LINE
-    local END_LINE
-    read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
 
-    if [[ $START_LINE -ne 0 ]]; then
-        local BEFORE
-        local after
-        let "BEFORE = $START_LINE - 1"
-        let "AFTER = $END_LINE + 1"
+    clean_custom_env_vars() {
+        echo "hello world"
+    }
 
-        # Insert space if no new endline found on .bashrc
-        if [[ ! -z $(tail -c 1 $BASHRC) ]]; then echo >> $BASHRC; fi
-
-        # Take out one extra newline so there's no double newline after truncation
-        if [[ -z $(sed -n "${BEFORE}p" $BASHRC) && -z $(sed -n "${AFTER}p" $BASHRC) ]]; then sed -i "${BEFORE}d" $BASHRC; fi
-
-        # Get new delimiter lines
+    clean_bashrc() {
+        local START_LINE
+        local END_LINE
         read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
 
-        # Remove export line on .bashrc
-        sed -i "${START_LINE},${END_LINE}d" $BASHRC
-    fi
+        if [[ $START_LINE -ne 0 ]]; then
+            local BEFORE
+            local after
+            let "BEFORE = $START_LINE - 1"
+            let "AFTER = $END_LINE + 1"
+
+            # Insert space if no new endline found on .bashrc
+            if [[ ! -z $(tail -c 1 $BASHRC) ]]; then echo >> $BASHRC; fi
+
+            # Take out one extra newline so there's no double newline after truncation
+            if [[ -z $(sed -n "${BEFORE}p" $BASHRC) && -z $(sed -n "${AFTER}p" $BASHRC) ]]; then sed -i "${BEFORE}d" $BASHRC; fi
+
+            # Get new delimiter lines
+            read START_LINE END_LINE < <(get_env_vars_section_in_bashrc)
+
+            # Remove export line on .bashrc
+            sed -i "${START_LINE},${END_LINE}d" $BASHRC
+        fi
+    }
+
+    clean_custom_env_vars
+    
 }
 
 
