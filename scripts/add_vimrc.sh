@@ -11,12 +11,8 @@ CUSTOM_VIMRC=$(cd .. || exit; pwd)/.vimrc
 VIMRC_LOCATION="$HOME/.vimrc"
 
 if [[ -f $VIMRC_LOCATION ]]; then
-	echo ".vimrc found on $VIMRC_LOCATION"
-	echo "Appending $CUSTOM_VIMRC to $VIMRC_LOCATION "
 	((echo; cat $CUSTOM_VIMRC) >> $VIMRC_LOCATION) && \
-		echo "Appending successful! "
+		echo ">>> SUCCESS: vimrc Update successful! "
 else
-	echo "No existing .vimrc found on $HOME..."
-	echo "Creating .vimrc file on $HOME"
-	cp -v $CUSTOM_VIMRC $HOME && echo ".vimrc file is now set..."
+	cp $CUSTOM_VIMRC $HOME && echo ">>> SUCCESS: .vimrc file is now set..."
 fi

@@ -8,7 +8,7 @@ COMMANDCENTER="$(cd ..; pwd)/CommandCenter"
 BASH_ALIASES="$(cd ..; pwd)/.bash_aliases"
 
 # Copy Command Center to home dir
-cp -rv $COMMANDCENTER $HOME && \
+cp -r $COMMANDCENTER $HOME && \
 echo "Copy CommandCenter to $HOME successful!" || \
 { echo "Failed to copy CommandCenter to $HOME"; exit 1; }
 
@@ -16,7 +16,7 @@ echo "Copy CommandCenter to $HOME successful!" || \
 chmod +x $HOME/CommandCenter/*
 
 # Copy .bash_aliases to home dir
-cp -v $BASH_ALIASES $HOME && \
+cp $BASH_ALIASES $HOME && \
 echo "Copy .bash_aliases to $HOME successful!" || \
 { echo "Failed to copy .bash_aliases to $HOME"; exit 1; }
 
